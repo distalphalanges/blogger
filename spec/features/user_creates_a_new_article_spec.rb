@@ -15,6 +15,7 @@ describe 'user creates a new article' do
 
         expect(page).to have_content('New Article')
         expect(page).to have_content('This is a new article.')
+        expect(page).to have_content('Article created.')
       end
     end
   end
