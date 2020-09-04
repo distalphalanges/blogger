@@ -14,6 +14,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.create(article_params)
+    flash.notice = "Article created."
     redirect_to article_path(@article)
   end
 
@@ -22,11 +23,13 @@ class ArticlesController < ApplicationController
 
   def update
     @article.update(article_params)
+    flash.notice = "Article updated."
     redirect_to article_path(@article)
   end
 
   def destroy
     @article.destroy
+    flash.notice = "Article deleted."
     redirect_to articles_path
   end
 
