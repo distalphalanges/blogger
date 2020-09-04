@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'user can view one article' do
+describe 'user can view an article' do
   describe 'they click the link from the articles index' do
     it 'displays an article' do
       article = Article.create!(title: 'Article 1', body: 'Lorem ipsum and so on and so forth.')
@@ -18,5 +18,22 @@ describe 'user can view one article' do
       expect(page).to have_content(comment_2.author_name)
       expect(page).to have_content(comment_2.body)
     end
+  end
+
+  describe 'they fill in a comment form' do
+      it 'displays the comment on the article' do
+        article = Article.create!(title: 'Article 1', body: 'Lorem ipsum and so on and so forth.')
+
+        visit article_path(article)
+
+        fill_in 'comment[author_name]', with: 'Bob'
+        fill_in 'comment[body]', with: 'So many thoughts on this article.'
+        click_on 'Submit'
+
+        expect(current_path).to eq(article_path(article))
+        expect(page).to have_content('Post a Comment')
+        expect(page).to have_content('Bob')
+        expect(page).to have_content('So many thoughts on this article.')
+      end
   end
 end
